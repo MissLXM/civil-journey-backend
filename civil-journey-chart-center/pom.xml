@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父项目信息 -->
+    <parent>
+        <groupId>cn.mju.wjh</groupId>
+        <artifactId>civil-journey-backend</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <!-- pom信息 -->
+    <artifactId>civil-journey-chart-center</artifactId>
+    <version>1.0.0</version>
+    <name>civil-journey-chart-center</name>
+    <description>civil-journey-chart-center</description>
+
+    <!-- 版本管理 -->
+    <properties>
+        <!-- JDK版本 -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <!-- 项目编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- 依赖管理 -->
+    <dependencies>
+
+        <!-- 公共依赖 -->
+        <dependency>
+            <groupId>cn.mju.wjh</groupId>
+            <artifactId>civil-journey-common-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- 公共依赖(Api调用) -->
+        <dependency>
+            <groupId>cn.mju.wjh</groupId>
+            <artifactId>civil-journey-common-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- 公共依赖(MinIO) -->
+        <dependency>
+            <groupId>cn.mju.wjh</groupId>
+            <artifactId>civil-journey-common-minio</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+    </dependencies>
+
+</project>

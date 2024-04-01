@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Spring-Boot版本 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.4</version>
+        <relativePath/>
+    </parent>
+
+    <!-- pom信息 -->
+    <groupId>cn.mju.wjh</groupId>
+    <artifactId>civil-journey-backend</artifactId>
+    <version>1.0.0</version>
+    <name>civil-journey-backend</name>
+    <description>civil-journey-backend</description>
+
+    <!-- 子模块信息 -->
+    <modules>
+        <module>civil-journey-common</module>
+        <module>civil-journey-gateway</module>
+        <module>civil-journey-payment-center</module>
+        <module>civil-journey-user-center</module>
+        <module>civil-journey-course-center</module>
+        <module>civil-journey-article-center</module>
+        <module>civil-journey-feedback-center</module>
+        <module>civil-journey-common/civil-journey-common-core</module>
+        <module>civil-journey-chart-center</module>
+        <module>civil-journey-message-center</module>
+        <module>civil-journey-auth-center</module>
+    </modules>
+
+    <!-- 打包方式 -->
+    <packaging>pom</packaging>
+
+    <!-- 版本管理 -->
+    <properties>
+        <!-- JDK版本 -->
+        <java.version>17</java.version>
+        <!-- 项目编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Hutool版本 -->
+        <hutool.version>5.8.15</hutool.version>
+        <!-- Alibaba-Fastjson版本 -->
+        <alibaba-fastjson.version>2.0.40</alibaba-fastjson.version>
+        <!-- Commons-Lang3版本 -->
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <!-- Swagger注解版本 -->
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
+        <!-- Mysql驱动版本 -->
+        <mysql.version>8.0.32</mysql.version>
+        <!-- MyBatis-Plus版本-->
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
+        <!-- Spring-Boot版本 -->
+        <spring-boot.version>3.1.4</spring-boot.version>
+        <!-- MinIO版本 -->
+        <minio.version>8.0.3</minio.version>
+        <!-- Alipay版本 -->
+        <alipay.version>4.38.85.ALL</alipay.version>
+        <!-- FFmpeg流依赖 -->
+        <javacv.version>1.5.6</javacv.version>
+        <ffmpeg-platform.version>4.4-1.5.6</ffmpeg-platform.version>
+        <!-- Sa-Token 权限认证框架版本 -->
+        <sa-token.version>1.37.0</sa-token.version>
+        <!-- 敏感词屏蔽依赖 -->
+        <sensitive-word.version>0.8.0</sensitive-word.version>
+        <!-- Knife4j-Springdoc-Swagger版本 -->
+        <knife4j-springdoc-ui.version>4.3.0</knife4j-springdoc-ui.version>
+        <!-- Spring-Cloud版本 -->
+        <spring-colud.version>2022.0.3</spring-colud.version>
+        <!-- Spring-Cloud-Openfeign版本 -->
+        <spring-cloud-openfeign.version>3.1.8</spring-cloud-openfeign.version>
+        <!-- Spring-Cloud-Alibaba版本 -->
+        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+    </properties>
+
+    <!-- 依赖仓库管理 -->
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Spring-Cloud 微服务依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-colud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring-Cloud-Alibaba 微服务依赖 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring-Boot 依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Mysql驱动依赖 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- Mybatis-Plus依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-openfeign.version}</version>
+            </dependency>
+
+            <!-- Knife4j-Springdoc-Swagger依赖 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j-springdoc-ui.version}</version>
+            </dependency>
+
+            <!-- Knife4j-Springdoc-Swagger依赖(网关聚合中间件) -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-aggregation-spring-boot-starter</artifactId>
+                <version>${knife4j-springdoc-ui.version}</version>
+            </dependency>
+
+            <!-- JKnife4j-Springdoc-Swagger依赖(网关聚合版) -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
+                <version>${knife4j-springdoc-ui.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 权限认证依赖 -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-reactor-spring-boot3-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 权限认证依赖 -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+
+            <!-- Sa-Token 权限认证依赖(整合Redis、使用Jackson序列化方式) -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Hutool 工具包依赖 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- Alibaba-Fastjson 依赖 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${alibaba-fastjson.version}</version>
+            </dependency>
+
+            <!-- Swagger 注解依赖 -->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+
+            <!-- Apache-Commons 工具包依赖 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <!-- minIO依赖 -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <!-- alipay沙箱支付完整依赖 -->
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay.version}</version>
+            </dependency>
+
+            <!-- FFmpeg流依赖 -->
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacv</artifactId>
+                <version>${javacv.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>ffmpeg-platform</artifactId>
+                <version>${ffmpeg-platform.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 依赖管理 -->
+    <dependencies>
+
+        <!-- Spring-Boot 热部署依赖 -->
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        -->
+
+        <!-- 敏感词屏蔽依赖 -->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>sensitive-word</artifactId>
+            <version>${sensitive-word.version}</version>
+        </dependency>
+
+
+        <!-- Alibaba-Fastjson 依赖 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!-- Lombok 依赖 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- Spring-Cloud-Bootstrap 启动项依赖(系统级启动项,不会被本地配置覆盖)-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
+        <!-- Spring-Cloud-Nacos 配置中心依赖 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- Spring-Cloud-Nacos 服务注册中心 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <!-- 插件配置 -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!-- 子模块打包配置 -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

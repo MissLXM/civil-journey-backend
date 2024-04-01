@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父项目信息 -->
+    <parent>
+        <groupId>cn.mju.wjh</groupId>
+        <artifactId>civil-journey-common</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <!-- pom信息 -->
+    <artifactId>civil-journey-common-minio</artifactId>
+    <version>1.0.0</version>
+    <name>civil-journey-common-minio</name>
+    <description>civil-journey-common-minio</description>
+
+
+    <!-- 依赖管理 -->
+    <dependencies>
+
+        <!-- 公共依赖 -->
+        <dependency>
+            <groupId>cn.mju.wjh</groupId>
+            <artifactId>civil-journey-common-core</artifactId>
+            <version>1.0.0</version>
+            <!-- 排除的依赖 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.github.xiaoymin</groupId>
+                    <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- minIO依赖 -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+        </dependency>
+
+        <!-- FFmpeg流依赖 -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>ffmpeg-platform</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

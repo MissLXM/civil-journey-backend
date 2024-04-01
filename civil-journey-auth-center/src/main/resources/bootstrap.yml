@@ -1,0 +1,42 @@
+server:
+  # 统一认证中心端口
+  port: 8010
+
+spring:
+  # 服务名
+  application:
+    name: auth-center-service
+  cloud:
+    nacos:
+      # nacos的地址
+      server-addr: mju.lenzy.tech:8848
+      config:
+        # 命名空间
+        namespace: civil-journey
+        # 指定文件后缀
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - data-id: common-mysql.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+          - data-id: common-swagger.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+            refresh: true
+          - data-id: common-security.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+            refresh: true
+          - data-id: common-redis.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+            refresh: true
+          - data-id: common-email.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+            refresh: true
+          - data-id: common-minio.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+            refresh: true
+          - data-id: common-devtool.${spring.cloud.nacos.config.file-extension}
+            group: COMMON_GROUP
+            refresh: true
+      discovery:
+        # 命名空间
+        namespace: civil-journey
