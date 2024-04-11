@@ -1,6 +1,8 @@
 package cn.mju.wjh.payment.controller;
 
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.annotation.SaMode;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONObject;
@@ -19,16 +21,16 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ import java.util.Map;
  * @Author:wjh
  * @Create:2024-03-2024/3/19--10:28
  */
+@Slf4j
 @RestController
 @Tag(name = "支付宝支付服务")
 @RequestMapping("/alipay")
@@ -196,5 +199,54 @@ public class AliPayController {
         orderMapper.updateById(order);
 
         return Result.ok().message("操作成功");
+    }
+
+    @PostMapping("/return")
+    @SaCheckRole(value = {UseConstant.ROLE_SUPER_ADMIN, UseConstant.ADMIN_REAL_CONSTANT}, mode = SaMode.OR)
+    public Result returnPay(@RequestBody CivilOrder aliPay) throws AlipayApiException {
+
+        // 初始化API调用实体
+        AlipayClient alipayClient = new DefaultAlipayClient(
+                alipayConfiguration.getGatewayUrl(),
+                alipayConfiguration.getAppId(),
+                alipayConfiguration.getAppPrivateKey(),
+                alipayConfiguration.getForMat(),
+                alipayConfiguration.getCharSet(),
+                alipayConfiguration.getAlipayPublicKey(),
+                alipayConfiguration.getSignType()
+        );
+
+        // 初始化请求参数
+        AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+
+        // 封装参数
+        JSONObject bizContent = new JSONObject();
+        // 订单流水号
+        bizContent.set("trade_no", aliPay.getTradeVoucher());
+        // 订单的编号
+        bizContent.set("out_request_no", aliPay.getOrderId());
+        // 订单的总金额
+        bizContent.set("refund_amount", aliPay.getTradeAmount());
+
+        // 设置参数并执行退款操作
+        request.setBizContent(bizContent.toString());
+        AlipayTradeRefundResponse response = alipayClient.execute(request);
+
+        // 退款是否成功
+        if (response.isSuccess()) {
+            // 返还使用的免费次数
+            if (aliPay.getUseFreeNumber() > 0) {
+                userUtils.refundUserFreeNumber(aliPay.getUserId(), aliPay.getUseFreeNumber());
+            }
+
+            // 设置订单状态为退款状态
+            aliPay.setStatus((byte) 2);
+            aliPay.setCourseImage(null);
+            orderMapper.updateById(aliPay);
+
+            return Result.ok().message("退款成功");
+        } else {
+            return Result.fail().message("退款失败");
+        }
     }
 }

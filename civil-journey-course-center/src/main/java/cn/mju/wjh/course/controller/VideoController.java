@@ -116,4 +116,10 @@ public class VideoController {
         }
         return videoService.insertVideoSchedule(scheduleParams);
     }
+
+    @DeleteMapping("deleteVideoComment/{commentId}")
+    @Operation(summary = "视频--删除视频评论")
+    public Result deleteVideoComment(@PathVariable("commentId") Long commentId) {
+        return videoService.deleteVideoComment(commentId);
+    }
 }

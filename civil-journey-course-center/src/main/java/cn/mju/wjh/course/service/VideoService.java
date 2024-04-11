@@ -96,4 +96,11 @@ public interface VideoService {
      * @return 是否记录成功
      */
     Result insertVideoSchedule(VideoScheduleParams scheduleParams);
+
+    /**
+     * 视频--删除视频评论
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    Result deleteVideoComment(Long commentId);
 }

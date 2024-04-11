@@ -114,6 +114,12 @@ public class ArticleController {
         return articleService.queryArticleAllComments(articleId);
     }
 
+    @DeleteMapping("deleteComment/{commentId}")
+    @Operation(summary = "用户--删除评论")
+    public Result deleteComment(@PathVariable("commentId") Long commentId) {
+        return articleService.deleteComment(commentId);
+    }
+
     @GetMapping("queryArticleDetail/{articleId}")
     @Operation(summary = "用户--文章详情展示")
     public Result queryArticleDetail(

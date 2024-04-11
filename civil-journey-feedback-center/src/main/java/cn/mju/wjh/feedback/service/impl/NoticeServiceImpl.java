@@ -104,6 +104,31 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     /**
+     * 清空已读通知
+     * @param userId 用户ID
+     * @return 是否操作成功
+     */
+    @Override
+    public Result deleteReadNotice(Long userId) {
+        List<NoticeUser> noticeUsers = noticeUserMapper.selectList(
+                new LambdaQueryWrapper<NoticeUser>()
+                        .eq(NoticeUser::getAcceptId, userId)
+                        .eq(NoticeUser::getState, (byte) 1)
+        );
+
+        if (noticeUsers.size() == 0) {
+            return Result.fail().message("未存在已读的通知").code(HttpStatus.NOT_FOUND.getCode());
+        }
+
+        for (NoticeUser noticeUser : noticeUsers) {
+            noticeUserMapper.deleteById(noticeUser.getNoticeUserId());
+        }
+
+
+        return Result.ok().message("操作成功");
+    }
+
+    /**
      * 获取所有通知信息
      * @param noticeQueryParams 通知查询参数
      * @return 通知信息

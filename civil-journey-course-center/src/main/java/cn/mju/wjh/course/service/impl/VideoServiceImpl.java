@@ -353,9 +353,7 @@ public class VideoServiceImpl implements VideoService {
                     videoCommentsMapper.updateById(videoComments);
                     videoComments.setCommenterAvatar(minioUtil.preview(user.getHeadPortrait()));
 
-                    videoComments.setUserId(null);
                     videoComments.setVideoId(null);
-                    videoComments.setVideoCommentId(null);
                 }
         ).toList();
 
@@ -488,6 +486,19 @@ public class VideoServiceImpl implements VideoService {
                 return Result.fail().message("新增失败");
             }
         }
+    }
+
+    /**
+     * 视频--删除视频评论
+     * @param commentId 评论ID
+     * @return 是否删除成功
+     */
+    @Override
+    public Result deleteVideoComment(Long commentId) {
+        if (videoCommentsMapper.deleteById(commentId) == 0) {
+            return Result.fail().message("操作失败");
+        }
+        return Result.ok().message("操作成功");
     }
 
 }

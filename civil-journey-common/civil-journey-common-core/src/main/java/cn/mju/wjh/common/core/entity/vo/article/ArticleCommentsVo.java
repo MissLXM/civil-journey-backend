@@ -24,6 +24,12 @@ import java.sql.Timestamp;
 @Schema(name = "ArticleCommentsVo",description = "文章评论回显")
 public class ArticleCommentsVo {
 
+    @Schema(name = "articleCommentsId", description = "文章评论ID")
+    private Long articleCommentsId;
+
+    @Schema(name = "userId", description = "评论者ID")
+    private Long userId;
+
     @Schema(name = "commenterName", description = "评论者姓名")
     private String commenterName;
 

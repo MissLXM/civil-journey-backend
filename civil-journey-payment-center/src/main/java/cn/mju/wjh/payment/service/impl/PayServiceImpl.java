@@ -138,4 +138,17 @@ public class PayServiceImpl implements PayService {
         return Result.ok(orderIpage).message("操作失败");
     }
 
+    /**
+     * 支付--删除指定订单
+     * @param orderId 订单编号
+     * @return 是否操作成功
+     */
+    @Override
+    public Result deleteOrder(Long orderId) {
+        if (orderMapper.deleteById(orderId) == 0) {
+            return Result.fail().message("操作失败");
+        }
+        return Result.ok().message("操作成功");
+    }
+
 }

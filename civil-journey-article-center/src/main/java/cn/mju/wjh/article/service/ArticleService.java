@@ -76,6 +76,13 @@ public interface ArticleService {
     Result queryArticleAllComments(Long articleId);
 
     /**
+     * 删除评论
+     * @param commentId 评论ID
+     * @return 是否操作成功
+     */
+    Result deleteComment(Long commentId);
+
+    /**
      * 用户--文章详情展示
      * @param articleId 文章ID
      * @return 文章信息
@@ -121,4 +128,5 @@ public interface ArticleService {
      * @return 是否操作成功
      */
     Result deleteArticle(Long articleId);
+
 }

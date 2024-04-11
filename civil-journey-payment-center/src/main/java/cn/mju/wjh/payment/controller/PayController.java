@@ -1,6 +1,7 @@
 package cn.mju.wjh.payment.controller;
 
 import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import cn.mju.wjh.common.core.constant.UseConstant;
 import cn.mju.wjh.common.core.entity.param.pay.OrderQueryParams;
 import cn.mju.wjh.common.core.utils.Result;
@@ -38,7 +39,7 @@ public class PayController {
 
     @PostMapping("/pay/queryAllOrder")
     @Operation(summary = "管理员--查看所有订单")
-    @SaCheckRole(UseConstant.ROLE_SUPER_ADMIN)
+    @SaCheckRole(value = {UseConstant.ROLE_SUPER_ADMIN, UseConstant.ADMIN_REAL_CONSTANT}, mode = SaMode.OR)
     public Result queryAllOrder(@RequestBody @Validated OrderQueryParams orderQueryParams, BindingResult result) {
         if (result.hasErrors()) {
             return Result.validateError(result);
@@ -51,5 +52,12 @@ public class PayController {
     @Operation(summary = "支付--是否已购买课程")
     public Result isPayCourse(@PathVariable("courseId") Long courseId) {
         return payService.isPayCourse(courseId);
+    }
+
+    @SaUserCheckLogin
+    @DeleteMapping("/pay/deleteOrder/{orderId}")
+    @Operation(summary = "支付--删除指定订单")
+    public Result deleteOrder(@PathVariable("orderId") Long orderId) {
+        return payService.deleteOrder(orderId);
     }
 }

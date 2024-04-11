@@ -32,4 +32,11 @@ public interface PayService {
      * @return 所有订单
      */
     Result queryAllOrder(OrderQueryParams orderQueryParams);
+
+    /**
+     * 支付--删除指定订单
+     * @param orderId 订单编号
+     * @return 是否操作成功
+     */
+    Result deleteOrder(Long orderId);
 }

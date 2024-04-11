@@ -52,10 +52,9 @@ public class LoginUserUtils {
     /**
      * 修改用户
      * @param user 用户信息
-     * @return 是否操作成功
      */
-    public boolean updateUserInfo(CivilUser user) {
-        return userMapper.updateById(user) > 0;
+    public void updateUserInfo(CivilUser user) {
+        userMapper.updateById(user);
     }
 
     /**
@@ -160,4 +159,16 @@ public class LoginUserUtils {
                 .setLoginId(StpUserUtils.getTokenInfo().getLoginId().toString());
     }
 
+    /**
+     * 返还用户免费次数
+     * @param userId 用户ID
+     * @param useFreeNumber 免费次数
+     */
+    public void refundUserFreeNumber(Long userId, Integer useFreeNumber) {
+        CivilUser user = userMapper.selectById(userId);
+
+        // 更新次数
+        user.setFreeViewNumber(user.getFreeViewNumber() + useFreeNumber);
+        userMapper.updateById(user);
+    }
 }

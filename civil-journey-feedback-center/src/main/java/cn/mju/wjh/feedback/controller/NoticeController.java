@@ -58,6 +58,13 @@ public class NoticeController {
         return noticeService.updateUserNoticeStatus(noticeUserId);
     }
 
+    @SaUserCheckLogin
+    @DeleteMapping("/front/notice/deleteReadNotice/{userId}")
+    @Operation(summary = "反馈--清空已读通知")
+    public Result deleteReadNotice(@PathVariable("userId") Long userId) {
+        return noticeService.deleteReadNotice(userId);
+    }
+
     @PostMapping("/backend/notice/getAllNotice")
     @Operation(summary = "通知--获取所有通知信息")
     @SaCheckRole(value = {UseConstant.ROLE_SUPER_ADMIN, UseConstant.ADMIN_REAL_CONSTANT}, mode = SaMode.OR)
@@ -84,4 +91,6 @@ public class NoticeController {
     public Result deleteNotice(@RequestBody List<Long> noticeUserIds) {
         return noticeService.deleteNotice(noticeUserIds);
     }
+
+
 }

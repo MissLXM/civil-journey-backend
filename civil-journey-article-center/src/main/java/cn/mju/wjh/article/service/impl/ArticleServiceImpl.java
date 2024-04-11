@@ -533,6 +533,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
+     * 删除评论
+     * @param commentId 评论ID
+     * @return 是否操作成功
+     */
+    @Override
+    public Result deleteComment(Long commentId) {
+        if (articleCommentsMapper.deleteById(commentId) == 0) {
+            return Result.fail().message("操作失败");
+        }
+        return Result.ok().message("操作成功");
+    }
+
+    /**
      * 用户--文章详情展示
      * @param articleId 文章ID
      * @return 文章信息

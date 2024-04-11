@@ -36,6 +36,13 @@ public interface NoticeService {
     Result updateUserNoticeStatus(Long noticeUserId);
 
     /**
+     * 清空已读通知
+     * @param userId 用户ID
+     * @return 是否操作成功
+     */
+    Result deleteReadNotice(Long userId);
+
+    /**
      * 获取所有通知信息
      * @param noticeQueryParams 通知查询参数
      * @return 通知信息
@@ -55,4 +62,5 @@ public interface NoticeService {
      * @return 是否操作成功
      */
     Result deleteNotice(List<Long> noticeUserIds);
+
 }
