@@ -77,10 +77,6 @@ public class CivilCourse implements Serializable {
     @Schema(name = "payMoney", description = "购买金额")
     private Double payMoney;
 
-    @TableField(value = "is_curation")
-    @Schema(name = "isCuration", description = "是否精选(0:不精选、1:精选)")
-    private Byte isCuration;
-
     @TableField(value = "like_number")
     @Schema(name = "likeNumber", description = "点赞数")
     private Long likeNumber;
